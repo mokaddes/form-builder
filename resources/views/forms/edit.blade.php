@@ -25,8 +25,10 @@
                     <div class="card-body">
 
 
-                    <form action="{{ route('save-form') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('update-form', $formData->assign_form_id) }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="user_id" value="{{ $formData->user_id }}">
+                        <input type="hidden" name="form_id" value="{{ $formData->form_id }}">
                         @foreach(json_decode($formData->form_data, true) as $field)
                             @php
                                 $name = $field['name'] ?? '';
@@ -36,7 +38,7 @@
                             <div class="form-group">
                                 @if($type === 'header')
                                     {{-- Render Header --}}
-                                    <{{$field['subtype'] ?? 'h1'}}>{{ $field['label'] }}</{{$field['subtype'] ?? 'h1'}}>
+                                    <{{$field['subtype'] ?? 'h1'}} class="{{ $field['className'] }}">{{ $field['label'] }}</{{$field['subtype'] ?? 'h1'}}>
 
                                 @elseif($type === 'autocomplete' || $type === 'select')
                                     {{-- Render Autocomplete or Select --}}

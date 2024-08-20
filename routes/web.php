@@ -21,4 +21,12 @@ Route::post('assign-form', [HomeController::class, 'assignForm'])->name('assign-
 
 Route::get('form/{id}/fill', [HomeController::class, 'addForm'])->name('fill-form')->middleware('auth');
 Route::get('form/{id}/edit', [HomeController::class, 'editForm'])->name('edit-form')->middleware('auth');
+Route::get('form/{id}/view', [HomeController::class, 'viewForm'])->name('view-form')->middleware('auth');
 Route::post('form/{id}/update', [HomeController::class, 'updateForm'])->name('update-form')->middleware('auth');
+
+Route::get('form/{id}/view', [HomeController::class, 'viewForm'])->name('view-form')->middleware('auth');
+
+Route::get('form/{id}/delete', [HomeController::class, 'deleteForm'])->name('delete-form')->middleware('auth');
+
+Route::get('assign-form/{id}/delete', [HomeController::class, 'deleteAssignForm'])->name('delete-assign-form')->middleware('auth');
+

@@ -40,6 +40,7 @@
             var fields = [{
                 label: 'Logo',
                 type: 'image',
+                subtype: 'img',
                 icon: '🖼️'
             }];
 
@@ -59,10 +60,7 @@
             };
 
 
-            let formBuilder = $(fbEditor).formBuilder({
-                templates: templates,
-                fields: fields
-            });
+            let formBuilder = $(fbEditor).formBuilder();
 
 
             $(document).on("click", ".save-template", function () {

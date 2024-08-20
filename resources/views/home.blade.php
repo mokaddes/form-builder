@@ -29,7 +29,7 @@
                                     <td>{{ $form->name ?? "Form $form->id" }}</td>
                                     <td>
                                         <a href="{{ route('form-builder', $form->id) }}" class="btn btn-primary">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('delete-form', $form->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -61,10 +61,11 @@
                                     <td>
                                         @if($assignedForm->formData)
                                             <a href="{{ route('edit-form', $assignedForm->formData->id) }}" class="btn btn-primary">Edit</a>
+                                            <a href="{{ route('view-form', $assignedForm->formData->id) }}" class="btn btn-info">View</a>
                                         @else
                                             <a href="{{ route('fill-form', $assignedForm->id) }}" class="btn btn-primary">Add</a>
                                         @endif
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('delete-assign-form', $assignedForm->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

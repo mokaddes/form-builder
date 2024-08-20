@@ -75,6 +75,16 @@ class HomeController extends Controller
         }
         return view('forms.edit', compact('formData', 'allValues'));
     }
+    public function viewForm($id)
+    {
+        $formData = UserFormData::find($id);
+        $values = json_decode($formData->values, true);
+        $allValues = [];
+        foreach ($values as $key => $value) {
+            $allValues[$value['name']] = $value['value'];
+        }
+        return view('forms.view', compact('formData', 'allValues'));
+    }
 
     public function updateForm(Request $request, $id)
     {
@@ -108,8 +118,10 @@ class HomeController extends Controller
 
         $assign = UserAssignForm::find($id);
 
-        // Save the form data to the database
-        $userFormData = new UserFormData;
+        $userFormData = $assign->formData;
+        if (!$userFormData) {
+            $userFormData = new UserFormData;
+        }
         $userFormData->form_id = $request->form_id;
         $userFormData->user_id = $request->user_id;
         $userFormData->assign_form_id = $id;
@@ -120,6 +132,19 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', 'Form is successfully submitted!');
 
 
+    }
 
+    public function deleteForm($id)
+    {
+        $form = FormBuilder::find($id);
+        $form->delete();
+        return back()->with('success', 'Form is successfully deleted!');
+    }
+
+    public function deleteAssignForm($id)
+    {
+        $assignForm = UserAssignForm::find($id);
+        $assignForm->delete();
+        return back()->with('success', 'Form is successfully deleted!');
     }
 }
